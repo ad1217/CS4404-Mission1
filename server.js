@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const bodyParser = require("body-parser");
 const https = require('https');
@@ -32,4 +33,4 @@ app.post('/vote', (req, res) => {
 //   cert: fs.readFileSync('server-cert.pem')
 // }, app);
 // httpsServer.listen(4443);
-const server = app.listen(8081);
+const server = app.listen(80);
