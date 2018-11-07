@@ -6,6 +6,9 @@ const fs = require('fs');
 
 const app = express();
 
+const MAX_VOTES = 1;
+let ipDict = {};
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -19,6 +22,14 @@ app.get('/', (req, res, next) => {
 });
 
 app.post('/vote', (req, res) => {
+  // Only allow one submission for each IP address
+  let ip = req.connection.remoteAddress;
+  ipDict[ip] = (ipDict[ip] || 0) + 1;
+  if (ipDict[ip] > MAX_VOTES) {
+    res.status(429).send(`Error 429 Too Many Requests`);
+    return;
+  }
+
   let vote = req.body.sneaker;
   if (vote === 'writein') vote = req.body.writein;
 
