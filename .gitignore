@@ -1,1 +1,5 @@
 node_modules
+/certificates/*.pem
+/certificates/*.csr
+/certificates/index.txt*
+/certificates/serial.txt*
